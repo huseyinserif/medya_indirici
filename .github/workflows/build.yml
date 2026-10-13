@@ -24,7 +24,7 @@ jobs:
 
     - name: PyInstaller ile Tek Dosya Haline Getir
       run: |
-        pyinstaller --noconsole --onefile video_indirici.py
+        pyinstaller --noconsole --onefile --icon=logo.png video_indirici.py
 
     - name: Derlenen Dosyayi Kaydet (Artifact)
       uses: actions/upload-artifact@v4
