@@ -1,0 +1,33 @@
+name: Uygulamayi Derle
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Kodu Depodan Al
+      uses: actions/checkout@v4
+
+    - name: Python Kur
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Bagimliliklari ve PyInstaller Kur
+      run: |
+        python -m pip install --upgrade pip
+        pip install yt-dlp pyinstaller
+
+    - name: PyInstaller ile Tek Dosya Haline Getir
+      run: |
+        pyinstaller --noconsole --onefile video_indirici.py
+
+    - name: Derlenen Dosyayi Kaydet (Artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-medya-indirici
+        path: dist/video_indirici
